@@ -1,0 +1,33 @@
+on:
+  push:
+    branches:
+    - main
+env:
+  APP_PATH: .
+ 
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }} 
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+
+      - name: Install dependencies
+        working-directory: ${{ env.APP_PATH }} 
+        run: |
+          npm ci --ignore-scripts
+          npm run build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.5
+        with:
+          branch: gh-pages 
+          folder: app/dist 
