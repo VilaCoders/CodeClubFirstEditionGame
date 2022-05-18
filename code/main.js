@@ -1,20 +1,23 @@
 import kaboom from "kaboom"
 kaboom()
 
-// load a sprite "bean" from an image
+
 loadSprite("bean", "sprites/bean.png")
 
   
   
- let score = 0; 
-  
+let score = 0;
+const arbolSaltado = (tree, bean) => tree.pos.x < bean.pos.x
+const arbolPuntuado = (tree) => tree.color.r === 0 
+      && tree.color.g === 0
+      && tree.color.b === 255
 scene("game", () => {
   const scoreLabel = add([
     text(score),
     pos(24, 24)
   ])
 
-  // add something to screen
+
   const bean = add([
     sprite("bean"),
     pos(80, 40),
@@ -23,17 +26,14 @@ scene("game", () => {
   ])
 
   onUpdate("tree", (tree) =>  {
-    if (tree.pos.x < bean.pos.x 
-      && tree.color.r === 0 
-      && tree.color.g === 255 
-      && tree.color.b === 0) {
+    if (arbolSaltado(tree, bean) && !arbolPuntuado(tree)) {
       score++;
       scoreLabel.text = score; 
       tree.color = BLUE
     }
 })
 
-// add platform
+
   add([
     rect(width(), 48),
     pos(0, height() - 48),
@@ -65,7 +65,8 @@ scene("game", () => {
         origin("botleft"),
         color(GREEN),
         move(LEFT, 480),
-        "tree", // add a tag here
+        outview({ hide: true, pause: true }),
+        "tree",
     ]);
     wait(rand(1, 1.5), () => {
         spawnTree();
