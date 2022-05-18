@@ -14,10 +14,6 @@ scene("game", () => {
     pos(24, 24)
   ])
 
-  onUpdate(() => {
-      score++;
-      scoreLabel.text = score;
-  });
   // add something to screen
   const bean = add([
     sprite("bean"),
@@ -25,6 +21,18 @@ scene("game", () => {
     area(),  
     body()
   ])
+
+  onUpdate("tree", (tree) => {
+      console.log(tree)
+    if (tree.pos.x < bean.pos.x 
+      && tree.color.r === 0 
+      && tree.color.g === 255 
+      && tree.color.b === 0) {
+      score++;
+      scoreLabel.text = score; 
+      tree.color = BLUE
+    }
+})
 
 // add platform
   add([
@@ -56,7 +64,7 @@ scene("game", () => {
         outline(4),
         pos(width(), height() - 48),
         origin("botleft"),
-        color(255, 180, 255),
+        color(GREEN),
         move(LEFT, 480),
         "tree", // add a tag here
     ]);
