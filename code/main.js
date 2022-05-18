@@ -4,8 +4,20 @@ kaboom()
 // load a sprite "bean" from an image
 loadSprite("bean", "sprites/bean.png")
 
+  
+  
+ let score = 0; 
+  
 scene("game", () => {
-    
+  const scoreLabel = add([
+    text(score),
+    pos(24, 24)
+  ])
+
+  onUpdate(() => {
+      score++;
+      scoreLabel.text = score;
+  });
   // add something to screen
   const bean = add([
     sprite("bean"),
@@ -55,26 +67,17 @@ scene("game", () => {
   spawnTree();
 })
 scene("lose", () => {
-    add([
-        text("Game Over"),
-        pos(center()),
-        origin("center"),
-
-
-    ])
-})
-
-
-let score = 0;
-const scoreLabel = add([
+  add([
+      text("Game Over"),
+      pos(center()),
+      origin("center"),
+  ])
+  
+  const scoreLabel = add([
     text(score),
     pos(24, 24)
-])
-
-onUpdate(() => {
-    score++;
-    scoreLabel.text = score;
-});
+  ])
+})
 
 go("game")
 
