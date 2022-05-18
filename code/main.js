@@ -22,8 +22,7 @@ scene("game", () => {
     body()
   ])
 
-  onUpdate("tree", (tree) => {
-      console.log(tree)
+  onUpdate("tree", (tree) =>  {
     if (tree.pos.x < bean.pos.x 
       && tree.color.r === 0 
       && tree.color.g === 255 
