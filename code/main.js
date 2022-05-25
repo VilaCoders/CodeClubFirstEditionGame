@@ -1,7 +1,7 @@
 import kaboom from "kaboom"
 kaboom()
 
-const fondoImg = await loadSprite("fondo", "sprites/fondo.jpg")
+const fondoImg = await loadSprite("fondo", "sprites/fondo2.webp")
 
 loadSprite("bean", "sprites/bean.png")
 
@@ -13,11 +13,6 @@ const arbolPuntuado = (tree) => tree.color.r === 0
       && tree.color.g === 0
       && tree.color.b === 255
 scene("game", () => {
-  const scoreLabel = add([
-    text(score),
-    pos(24, 24)
-  ])
-
   const fondo = add([
     sprite("fondo"),
     // Make the background centered on the screen
@@ -34,6 +29,11 @@ scene("game", () => {
     height()/fondoImg.tex.height
   ));
   
+  const scoreLabel = add([
+    text(score),
+    pos(24, 24)
+  ])
+
   const bean = add([
     sprite("bean"),
     pos(80, 40),
