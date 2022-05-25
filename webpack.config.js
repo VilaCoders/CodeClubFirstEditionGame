@@ -10,6 +10,9 @@ module.exports = ({ env }) => ({
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
   },
+  experiments: {
+    topLevelAwait: true,
+  },
   module: {
     rules: [
       {

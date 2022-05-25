@@ -1,6 +1,7 @@
 import kaboom from "kaboom"
 kaboom()
 
+const fondoImg = await loadSprite("fondo", "sprites/fondo.jpg")
 
 loadSprite("bean", "sprites/bean.png")
 
@@ -17,7 +18,22 @@ scene("game", () => {
     pos(24, 24)
   ])
 
+  const fondo = add([
+    sprite("fondo"),
+    // Make the background centered on the screen
+    pos(width() / 2, height() / 2),
+    origin("center"),
+    // Allow the background to be scaled
+    scale(1),
+    // Keep the background position fixed even when the camera moves
+    fixed()
+  ])
 
+  fondo.scaleTo(Math.max(
+    width()/fondoImg.tex.width,
+    height()/fondoImg.tex.height
+  ));
+  
   const bean = add([
     sprite("bean"),
     pos(80, 40),
